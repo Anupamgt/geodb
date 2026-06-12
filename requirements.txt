@@ -1,0 +1,16 @@
+click
+tabulate
+fastapi
+uvicorn
+pydantic
+python-multipart
+requests
+lxml
+rasterio
+shapely
+geopandas
+fiona
+pyproj
+openpyxl
+xlsxwriter
+matplotlib
