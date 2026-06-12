@@ -35,5 +35,7 @@ dependencies = [
 [project.scripts]
 geodb = "geodb.cli:cli"
 geodb-transform = "geodb.transform.cli:main"
-geodb-agent = "geodb.agent_factory.cli:main"
 geodb-web = "geodb.web.__main__:main"
+
+[tool.vercel]
+entrypoint = "geodb.web.app:app"
