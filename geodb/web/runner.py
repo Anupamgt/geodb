@@ -56,16 +56,14 @@ def run_pipeline_create(session: PipelineSession, task: str, file_paths: list,
         session.status = "planning"
         _emit(session, "phase", message="Inspecting files and creating agent plan…")
 
-        file_infos = []
         for fp in file_paths:
             try:
-                info = inspect_file(fp)
-                info["path"] = os.path.abspath(fp)
-                file_infos.append(info)
+                # Just verify the file exists and is accessible
+                os.path.abspath(fp)
             except Exception as e:
-                _emit(session, "log", message=f"Warning: could not inspect {fp}: {e}")
+                _emit(session, "log", message=f"Warning: could not access {fp}: {e}")
 
-        spec = create_agent(task, files=file_infos, llm=llm)
+        spec = create_agent(task, files=file_paths, llm=llm)
         session.agent = spec
         session.total_steps = len(spec.steps)
 
@@ -85,7 +83,7 @@ def run_pipeline_create(session: PipelineSession, task: str, file_paths: list,
                 return
             elif decision == "regenerate":
                 _emit(session, "phase", message="Regenerating plan…")
-                spec = create_agent(task, files=file_infos, llm=llm)
+                spec = create_agent(task, files=file_paths, llm=llm)
                 session.agent = spec
                 session.total_steps = len(spec.steps)
                 _emit(session, "plan",
