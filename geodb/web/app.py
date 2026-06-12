@@ -32,7 +32,7 @@ from geodb.web.runner import PipelineSession, run_pipeline_create, run_pipeline_
 app = FastAPI(title="GeoFlow", docs_url=None, redoc_url=None)
 
 STATIC_DIR = Path(__file__).parent / "static"
-UPLOAD_DIR = Path(af_cfg.PROJECT_DIR) / ".uploads"
+UPLOAD_DIR = Path(af_cfg.DATA_DIR) / ".uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")

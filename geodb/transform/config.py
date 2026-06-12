@@ -7,13 +7,19 @@ import os
 # ── Paths ─────────────────────────────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(os.path.dirname(BASE_DIR))
-PIPELINES_DIR = os.path.join(PROJECT_DIR, "pipelines")
+
+if os.environ.get("VERCEL") == "1" or os.environ.get("AWS_EXECUTION_ENV"):
+    DATA_DIR = "/tmp"
+else:
+    DATA_DIR = PROJECT_DIR
+
+PIPELINES_DIR = os.path.join(DATA_DIR, "pipelines")
 EXAMPLES_DIR = os.path.join(BASE_DIR, "examples")
-OUTPUT_DIR = os.path.join(PROJECT_DIR, "output")
-SANDBOX_ROOT = os.path.join(PROJECT_DIR, ".sandbox")
+OUTPUT_DIR = os.path.join(DATA_DIR, "output")
+SANDBOX_ROOT = os.path.join(DATA_DIR, ".sandbox")
 
 # ── Persistent config file (written by `python -m geodb.transform config`) ────
-CONFIG_FILE = os.path.join(PROJECT_DIR, ".geodb_config.json")
+CONFIG_FILE = os.path.join(DATA_DIR, ".geodb_config.json")
 
 def _load_saved() -> dict:
     try:

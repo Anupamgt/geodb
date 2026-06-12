@@ -50,3 +50,11 @@ geodb/catalog/*.db
 .idea/
 *.swp
 *.log
+
+# App specific
+.geodb_config.json
+.sandbox/
+.uploads/
+output/
+agents/
+*.kml

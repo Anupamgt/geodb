@@ -6,13 +6,19 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(os.path.dirname(BASE_DIR))
-AGENTS_DIR = os.path.join(PROJECT_DIR, "agents")
-SANDBOX_ROOT = os.path.join(PROJECT_DIR, ".sandbox")
-OUTPUT_DIR = os.path.join(PROJECT_DIR, "output")
+
+if os.environ.get("VERCEL") == "1" or os.environ.get("AWS_EXECUTION_ENV"):
+    DATA_DIR = "/tmp"
+else:
+    DATA_DIR = PROJECT_DIR
+
+AGENTS_DIR = os.path.join(DATA_DIR, "agents")
+SANDBOX_ROOT = os.path.join(DATA_DIR, ".sandbox")
+OUTPUT_DIR = os.path.join(DATA_DIR, "output")
 KNOWLEDGE_DIR = os.path.join(BASE_DIR, "knowledge")
 
 # Shared config file written by `python -m geodb.transform config`
-_CONFIG_FILE = os.path.join(PROJECT_DIR, ".geodb_config.json")
+_CONFIG_FILE = os.path.join(DATA_DIR, ".geodb_config.json")
 
 def _saved() -> dict:
     try:
