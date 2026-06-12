@@ -1,0 +1,45 @@
+{
+  "template_id": "visualize_dem_3d",
+  "task": "Create a visualization of DEM elevation data",
+  "required_inputs": [
+    {
+      "type": "tif",
+      "role": "DEM elevation raster"
+    }
+  ],
+  "output": {
+    "format": "html",
+    "description": "Interactive HTML with elevation heatmap and histogram"
+  },
+  "parameters": {},
+  "steps": [
+    {
+      "id": 1,
+      "name": "extract_data",
+      "description": "Read DEM, downsample for visualization, extract elevation grid and bounds",
+      "inputs": [
+        "dem.tif"
+      ],
+      "outputs": [
+        "elevation_data.csv"
+      ],
+      "needs": [],
+      "viz_hint": "heatmap"
+    },
+    {
+      "id": 2,
+      "name": "generate_viz",
+      "description": "Create self-contained HTML with Leaflet heatmap of elevation + Plotly histogram of elevation distribution",
+      "inputs": [
+        "elevation_data.csv"
+      ],
+      "outputs": [
+        "dem_viz.html"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "heatmap"
+    }
+  ]
+}

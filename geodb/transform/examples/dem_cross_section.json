@@ -1,0 +1,67 @@
+{
+  "template_id": "dem_cross_section",
+  "task": "Extract elevation profile / cross section along a line from a DEM",
+  "required_inputs": [
+    {
+      "type": "kml",
+      "role": "line / path geometry"
+    },
+    {
+      "type": "tif",
+      "role": "DEM elevation raster"
+    }
+  ],
+  "output": {
+    "format": "csv",
+    "description": "CSV with distance_m, lat, lon, elevation_m"
+  },
+  "parameters": {
+    "sample_interval_m": 10
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "parse_line",
+      "description": "Read KML, extract line geometry as GeoJSON",
+      "inputs": [
+        "line.kml"
+      ],
+      "outputs": [
+        "line.geojson"
+      ],
+      "needs": [],
+      "viz_hint": "map_lines"
+    },
+    {
+      "id": 2,
+      "name": "sample_along_line",
+      "description": "Generate points at regular intervals along the line, sample DEM at each",
+      "inputs": [
+        "line.geojson",
+        "dem.tif"
+      ],
+      "outputs": [
+        "profile.csv"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "line_chart"
+    },
+    {
+      "id": 3,
+      "name": "export",
+      "description": "Final profile CSV",
+      "inputs": [
+        "profile.csv"
+      ],
+      "outputs": [
+        "cross_section.csv"
+      ],
+      "needs": [
+        2
+      ],
+      "viz_hint": "table_preview"
+    }
+  ]
+}

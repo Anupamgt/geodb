@@ -1,0 +1,82 @@
+{
+  "template_id": "dem_height_at_grid",
+  "task": "Extract elevation heights at regular grid points inside a polygon from a DEM",
+  "required_inputs": [
+    {
+      "type": "kml",
+      "role": "polygon boundary"
+    },
+    {
+      "type": "tif",
+      "role": "DEM elevation raster"
+    }
+  ],
+  "output": {
+    "format": "xlsx",
+    "description": "Excel with point_id, lat, lon, height_m"
+  },
+  "parameters": {
+    "grid_spacing_m": 20
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "parse_polygon",
+      "description": "Read KML, extract polygon as GeoJSON",
+      "inputs": [
+        "area.kml"
+      ],
+      "outputs": [
+        "polygon.geojson"
+      ],
+      "needs": [],
+      "viz_hint": "map_polygon"
+    },
+    {
+      "id": 2,
+      "name": "generate_grid",
+      "description": "Create regular grid points inside polygon, project to UTM for metric spacing",
+      "inputs": [
+        "polygon.geojson"
+      ],
+      "outputs": [
+        "grid_points.csv"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "map_points"
+    },
+    {
+      "id": 3,
+      "name": "sample_dem",
+      "description": "Sample DEM raster at each grid point to get elevation, handle nodata",
+      "inputs": [
+        "grid_points.csv",
+        "dem.tif"
+      ],
+      "outputs": [
+        "heights.csv"
+      ],
+      "needs": [
+        2
+      ],
+      "viz_hint": "map_colored_points"
+    },
+    {
+      "id": 4,
+      "name": "export_excel",
+      "description": "Write results to formatted Excel",
+      "inputs": [
+        "heights.csv"
+      ],
+      "outputs": [
+        "output.xlsx"
+      ],
+      "needs": [
+        3
+      ],
+      "viz_hint": "table_preview"
+    }
+  ]
+}

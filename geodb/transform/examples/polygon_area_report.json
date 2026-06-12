@@ -1,0 +1,60 @@
+{
+  "template_id": "polygon_area_report",
+  "task": "Calculate area and perimeter of polygons in a KML file",
+  "required_inputs": [
+    {
+      "type": "kml",
+      "role": "polygons"
+    }
+  ],
+  "output": {
+    "format": "xlsx",
+    "description": "Excel with polygon_id, area_ha, perimeter_m, centroid_lat, centroid_lon"
+  },
+  "parameters": {},
+  "steps": [
+    {
+      "id": 1,
+      "name": "parse_polygons",
+      "description": "Read KML, extract all polygons as GeoDataFrame",
+      "inputs": [
+        "area.kml"
+      ],
+      "outputs": [
+        "polygons.geojson"
+      ],
+      "needs": [],
+      "viz_hint": "map_polygon"
+    },
+    {
+      "id": 2,
+      "name": "compute_metrics",
+      "description": "Project to UTM, calculate area(ha), perimeter(m), centroid for each polygon",
+      "inputs": [
+        "polygons.geojson"
+      ],
+      "outputs": [
+        "metrics.csv"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "table_preview"
+    },
+    {
+      "id": 3,
+      "name": "export_excel",
+      "description": "Write formatted Excel report",
+      "inputs": [
+        "metrics.csv"
+      ],
+      "outputs": [
+        "area_report.xlsx"
+      ],
+      "needs": [
+        2
+      ],
+      "viz_hint": "table_preview"
+    }
+  ]
+}

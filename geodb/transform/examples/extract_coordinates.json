@@ -1,0 +1,30 @@
+{
+  "template_id": "extract_coordinates",
+  "task": "Extract all coordinates/vertices from a KML as a table",
+  "required_inputs": [
+    {
+      "type": "kml",
+      "role": "input geometry"
+    }
+  ],
+  "output": {
+    "format": "csv",
+    "description": "CSV with point_id, latitude, longitude, feature_name"
+  },
+  "parameters": {},
+  "steps": [
+    {
+      "id": 1,
+      "name": "parse_and_extract",
+      "description": "Read KML, iterate all placemarks, extract every coordinate vertex with its feature name",
+      "inputs": [
+        "input.kml"
+      ],
+      "outputs": [
+        "coordinates.csv"
+      ],
+      "needs": [],
+      "viz_hint": "map_points"
+    }
+  ]
+}

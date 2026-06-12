@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geodb"
+version = "0.1.0"
+description = "Geospatial database and agentic transformation tool"
+readme = "README.md"
+authors = [
+    { name = "Rakesh Kumar" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "click",
+    "tabulate",
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "python-multipart",
+    "requests",
+    "lxml",
+    "rasterio",
+    "shapely",
+    "geopandas",
+    "fiona",
+    "pyproj",
+    "openpyxl",
+    "xlsxwriter",
+    "matplotlib",
+]
+
+[project.scripts]
+geodb = "geodb.cli:cli"
+geodb-transform = "geodb.transform.cli:main"
+geodb-agent = "geodb.agent_factory.cli:main"
+geodb-web = "geodb.web.__main__:main"

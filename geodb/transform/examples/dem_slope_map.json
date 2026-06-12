@@ -1,0 +1,45 @@
+{
+  "template_id": "dem_slope_map",
+  "task": "Generate slope map from DEM raster",
+  "required_inputs": [
+    {
+      "type": "tif",
+      "role": "DEM elevation raster"
+    }
+  ],
+  "output": {
+    "format": "tif",
+    "description": "Slope raster in degrees"
+  },
+  "parameters": {},
+  "steps": [
+    {
+      "id": 1,
+      "name": "compute_slope",
+      "description": "Read DEM, compute slope using numpy gradient, save as GeoTIFF with same CRS/transform",
+      "inputs": [
+        "dem.tif"
+      ],
+      "outputs": [
+        "slope.tif"
+      ],
+      "needs": [],
+      "viz_hint": "raster_preview"
+    },
+    {
+      "id": 2,
+      "name": "generate_report",
+      "description": "Create summary CSV with slope statistics (min, max, mean, std) and classification counts",
+      "inputs": [
+        "slope.tif"
+      ],
+      "outputs": [
+        "slope_stats.csv"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "histogram"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "template_id": "kml_to_shapefile",
+  "task": "Convert KML file to Shapefile format",
+  "required_inputs": [
+    {
+      "type": "kml",
+      "role": "input geometry"
+    }
+  ],
+  "output": {
+    "format": "shp",
+    "description": "ESRI Shapefile (.shp + sidecar files)"
+  },
+  "parameters": {},
+  "steps": [
+    {
+      "id": 1,
+      "name": "parse_kml",
+      "description": "Read KML/KMZ, extract features as GeoDataFrame",
+      "inputs": [
+        "input.kml"
+      ],
+      "outputs": [
+        "features.geojson"
+      ],
+      "needs": [],
+      "viz_hint": "map_polygon"
+    },
+    {
+      "id": 2,
+      "name": "export_shapefile",
+      "description": "Write GeoDataFrame to Shapefile format using geopandas",
+      "inputs": [
+        "features.geojson"
+      ],
+      "outputs": [
+        "output.shp"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "map_polygon"
+    }
+  ]
+}

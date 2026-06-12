@@ -1,0 +1,50 @@
+{
+  "template_id": "clip_raster_to_polygon",
+  "task": "Clip/crop a raster (DEM/TIF) to a polygon boundary from KML",
+  "required_inputs": [
+    {
+      "type": "kml",
+      "role": "clip boundary polygon"
+    },
+    {
+      "type": "tif",
+      "role": "raster to clip"
+    }
+  ],
+  "output": {
+    "format": "tif",
+    "description": "Clipped GeoTIFF containing only the area inside the polygon"
+  },
+  "parameters": {},
+  "steps": [
+    {
+      "id": 1,
+      "name": "parse_polygon",
+      "description": "Read KML, extract polygon geometry as GeoJSON",
+      "inputs": [
+        "boundary.kml"
+      ],
+      "outputs": [
+        "polygon.geojson"
+      ],
+      "needs": [],
+      "viz_hint": "map_polygon"
+    },
+    {
+      "id": 2,
+      "name": "clip_raster",
+      "description": "Use rasterio.mask to clip the raster to the polygon. Handle CRS mismatch by reprojecting polygon if needed.",
+      "inputs": [
+        "polygon.geojson",
+        "input.tif"
+      ],
+      "outputs": [
+        "clipped.tif"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "raster_preview"
+    }
+  ]
+}

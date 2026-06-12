@@ -1,0 +1,45 @@
+{
+  "template_id": "plot_on_map",
+  "task": "Plot geometries from KML/KMZ on an interactive map",
+  "required_inputs": [
+    {
+      "type": "kml",
+      "role": "geometries to plot"
+    }
+  ],
+  "output": {
+    "format": "html",
+    "description": "Interactive HTML map with Leaflet showing all geometries"
+  },
+  "parameters": {},
+  "steps": [
+    {
+      "id": 1,
+      "name": "parse_geometry",
+      "description": "Read KML/KMZ, extract all geometries as GeoJSON. For KMZ, unzip first to get the KML inside.",
+      "inputs": [
+        "input.kml"
+      ],
+      "outputs": [
+        "features.geojson"
+      ],
+      "needs": [],
+      "viz_hint": "map_polygon"
+    },
+    {
+      "id": 2,
+      "name": "generate_map",
+      "description": "Create a self-contained HTML file with Leaflet.js that displays all geometries on an OpenStreetMap basemap. Color polygons, lines, points differently. Auto-fit map bounds. Add popups with properties.",
+      "inputs": [
+        "features.geojson"
+      ],
+      "outputs": [
+        "map.html"
+      ],
+      "needs": [
+        1
+      ],
+      "viz_hint": "map_polygon"
+    }
+  ]
+}
