@@ -39,3 +39,7 @@ geodb-web = "geodb.web.__main__:main"
 
 [tool.vercel]
 entrypoint = "geodb.web.app:app"
+
+[tool.setuptools.packages.find]
+include = ["geodb*"]
+
