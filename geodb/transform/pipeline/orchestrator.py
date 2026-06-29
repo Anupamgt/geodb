@@ -65,13 +65,13 @@ class Orchestrator:
 
     def create_plan(self, task: str) -> StepPlan:
         """Generate a step plan from the task description."""
-        self._log("🔍 Searching for matching examples…")
+        self._log("Searching for matching examples…")
         input_types = [f["type"] for f in self.file_infos]
         matching = examples.find_matching(task, input_types)
         if matching:
             self._log(f"   Found {len(matching)} matching example(s)")
 
-        self._log("📋 Planner agent generating step plan…")
+        self._log("Planner agent generating step plan…")
         self.plan = planner.run(task, self.file_infos, self.llm, matching)
         self.steps = self.plan.steps
 
@@ -86,7 +86,7 @@ class Orchestrator:
         """Format the plan for display."""
         if not self.plan:
             return "(no plan)"
-        lines = [f"\n📋 Plan: {self.plan.task}"]
+        lines = [f"\nPlan: {self.plan.task}"]
         lines.append(f"   Output: {self.plan.output.get('format', '?')} — "
                      f"{self.plan.output.get('description', '')}")
         if self.plan.parameters:
@@ -165,59 +165,59 @@ class Orchestrator:
         for attempt in range(1, MAX_CODER_RETRIES + 1):
             try:
                 if current_code is None:
-                    self._log(f"   🤖 Coder (attempt {attempt}): generating…")
+                    self._log(f"   Coder (attempt {attempt}): generating…")
                     current_code = coder.run(step, plan_ctx, self.llm)
                 else:
-                    self._log(f"   🤖 Using verifier's fix (attempt {attempt})")
+                    self._log(f"   Using verifier's fix (attempt {attempt})")
 
-                self._log(f"   🔍 Verifier: checking…")
+                self._log(f"   Verifier: checking…")
                 v = verifier.run(current_code, step, plan_ctx, self.llm)
 
                 if v["passed"]:
-                    self._log("   ✅ Code verified")
+                    self._log("   Code verified")
                     return v.get("fixed_code") or current_code
 
-                self._log(f"   ❌ Verification failed: {v['issues']}")
+                self._log(f"   Verification failed: {v['issues']}")
                 current_code = v.get("fixed_code")  # None → coder regenerates
 
             except Exception as e:
-                self._log(f"   ⚠️  Error: {e}")
+                self._log(f"    Error: {e}")
                 current_code = None
 
         return ""
 
     def _execute_with_retries(self, step: Step) -> dict:
         """Execute step, use fixer on failure."""
-        self._log(f"   ⚡ Executing…")
+        self._log(f"   Executing…")
 
         result = run_step(step, self.file_map)
 
         if result["success"]:
-            self._log(f"   ✅ Done in {result['elapsed']:.1f}s — "
+            self._log(f"   Done in {result['elapsed']:.1f}s — "
                      f"outputs: {list(result['output_files'].keys())}")
             if result["stdout"].strip():
-                self._log(f"   📤 {result['stdout'].strip()[:200]}")
+                self._log(f"   {result['stdout'].strip()[:200]}")
             return result
 
         # Execution failed → fixer
         for fix_attempt in range(1, MAX_FIXER_RETRIES + 1):
-            self._log(f"   ❌ Execution failed: {result['error'][:150]}")
-            self._log(f"   🔧 Fixer (attempt {fix_attempt}): repairing…")
+            self._log(f"   Execution failed: {result['error'][:150]}")
+            self._log(f"   Fixer (attempt {fix_attempt}): repairing…")
 
             try:
                 fixed_code = fixer.run(step.code, result["error"], step, self.llm)
                 step.code = fixed_code
                 step.retries += 1
 
-                self._log(f"   ⚡ Re-executing…")
+                self._log(f"   Re-executing…")
                 result = run_step(step, self.file_map)
 
                 if result["success"]:
-                    self._log(f"   ✅ Fixed! Done in {result['elapsed']:.1f}s")
+                    self._log(f"   Fixed! Done in {result['elapsed']:.1f}s")
                     return result
 
             except Exception as e:
-                self._log(f"   ⚠️  Fixer error: {e}")
+                self._log(f"    Fixer error: {e}")
 
         return result
 
@@ -226,20 +226,20 @@ class Orchestrator:
         if not output_meta:
             return ""
 
-        self._log(f"   🎨 Visualizer: generating…")
+        self._log(f"   Visualizer: generating…")
 
         try:
             viz_result = visualizer.run(step, output_meta, self.llm)
             html = viz_result["html"]
             step.viz_summary = viz_result["summary"]
         except Exception as e:
-            self._log(f"   ⚠️  Viz LLM failed ({e}), using fallback")
+            self._log(f"    Viz LLM failed ({e}), using fallback")
             viz_result = visualizer.generate_fallback(step, output_meta)
             html = viz_result["html"]
             step.viz_summary = viz_result["summary"]
 
         viz_path = save_step_viz(step.id, step.name, html, self.output_dir)
-        self._log(f"   🗺️  Viz saved: {viz_path}")
+        self._log(f"    Viz saved: {viz_path}")
         return viz_path
 
     # ── Phase 3: Save ─────────────────────────────────────────────────
@@ -247,13 +247,13 @@ class Orchestrator:
     def save_template(self, template_id: str = None) -> str:
         """Save the completed pipeline as a reusable template."""
         tid = template.save(self.plan, self.steps, template_id)
-        self._log(f"💾 Template saved: {tid}")
+        self._log(f"Template saved: {tid}")
         return tid
 
     def generate_report(self) -> str:
         """Generate the combined pipeline report."""
         path = generate_pipeline_report(self.plan.task, self.steps, self.output_dir)
-        self._log(f"📊 Report saved: {path}")
+        self._log(f"Report saved: {path}")
         return path
 
     # ── Replay ────────────────────────────────────────────────────────

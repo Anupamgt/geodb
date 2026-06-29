@@ -3,7 +3,7 @@ import uvicorn
 
 
 def main():
-    print("\n🌍 GeoFlow starting at http://localhost:8000\n")
+    print("\nGeoFlow starting at http://localhost:8000\n")
     uvicorn.run("geodb.web.app:app", host="0.0.0.0", port=8000, reload=False,
                 h11_max_incomplete_event_size=10 * 1024 * 1024 * 1024)
 

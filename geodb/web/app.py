@@ -12,10 +12,15 @@ import uuid
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, UploadFile, File
-from fastapi.responses import StreamingResponse, FileResponse
+import logging
+from fastapi import FastAPI, HTTPException, UploadFile, File, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
+logger = logging.getLogger("geodb.web")
 
 # Allow uploads up to 10 GB
 try:
@@ -29,7 +34,20 @@ from geodb.agent_factory.llm_client import LLMClient
 from geodb.agent_factory.storage import agent_store
 from geodb.web.runner import PipelineSession, run_pipeline_create, run_pipeline_saved
 
-app = FastAPI(title="GeoFlow", docs_url=None, redoc_url=None)
+app = FastAPI(title="GeoFlow API", version="0.1.0", docs_url="/docs", redoc_url="/redoc")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logger.error(f"Unhandled error on {request.method} {request.url.path}: {exc}", exc_info=True)
+    return JSONResponse(status_code=500, content={"detail": "Internal server error. Check logs for details."})
 
 STATIC_DIR = Path(__file__).parent / "static"
 UPLOAD_DIR = Path(af_cfg.DATA_DIR) / ".uploads"
@@ -48,6 +66,17 @@ GEO_EXT = {".kml", ".kmz", ".geojson", ".tif", ".tiff", ".shp",
 @app.get("/")
 async def root():
     return FileResponse(str(STATIC_DIR / "index.html"))
+
+
+
+@app.get("/api/status")
+async def api_status():
+    from geodb.agent_factory.llm_client import LLMClient
+    return {"tokens_used": LLMClient.global_tokens_used, "tokens_limit": 100}
+
+@app.get("/api/health")
+async def api_health():
+    return {"status": "healthy", "service": "geodb-web", "version": "0.1.0"}
 
 
 # ── Agents ────────────────────────────────────────────────────────────────────

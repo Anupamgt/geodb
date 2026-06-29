@@ -7,18 +7,18 @@
 <style>
 /* ── Variables ── */
 :root {
-  --bg: #0f1117;
-  --surface: #1a1d27;
-  --surface2: #22263a;
-  --border: #2e3250;
-  --accent: #4f8ef7;
-  --accent2: #38bdf8;
+  --bg: #1e1e1e;
+  --surface: #252526;
+  --surface2: #2d2d30;
+  --border: #3e3e42;
+  --accent: #007acc;
+  --accent2: #4fc1ff;
   --green: #22c55e;
   --red: #ef4444;
   --yellow: #f59e0b;
   --text: #e2e8f0;
   --muted: #64748b;
-  --radius: 10px;
+  --radius: 0px;
   --font: 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -44,7 +44,7 @@ header {
 .logo-icon { font-size: 22px; }
 .model-badge {
   background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--muted);
+  border-radius: 0px; padding: 4px 12px; font-size: 12px; color: var(--muted);
 }
 .model-badge span { color: var(--accent); font-weight: 600; }
 
@@ -94,7 +94,7 @@ main { display: flex; flex: 1; overflow: hidden; }
 .file-path { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .btn-add {
   background: transparent; border: 1px solid var(--accent);
-  border-radius: 6px; padding: 4px 10px; color: var(--accent); font-size: 12px;
+  border-radius: 0px; padding: 4px 10px; color: var(--accent); font-size: 12px;
   transition: all .15s; white-space: nowrap;
 }
 .btn-add:hover { background: var(--accent); color: #fff; }
@@ -127,6 +127,13 @@ main { display: flex; flex: 1; overflow: hidden; }
   resize: vertical; min-height: 80px; line-height: 1.5;
 }
 .form-textarea:focus { border-color: var(--accent); }
+.template-pill {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 3px 8px; color: var(--text); font-size: 11px;
+  transition: all .15s;
+}
+.template-pill:hover { border-color: var(--accent); color: var(--accent); }
+
 
 /* Files drop zone */
 .drop-zone {
@@ -141,7 +148,7 @@ main { display: flex; flex: 1; overflow: hidden; }
 .selected-file {
   display: flex; align-items: center; gap: 8px;
   background: var(--surface2); border: 1px solid var(--border);
-  border-radius: 8px; padding: 7px 10px;
+  border-radius: 0px; padding: 7px 10px;
 }
 .selected-file .file-name { flex: 1; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .btn-remove {
@@ -191,7 +198,7 @@ main { display: flex; flex: 1; overflow: hidden; }
 .plan-steps { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .plan-step {
   display: flex; gap: 10px; padding: 8px 10px;
-  background: var(--bg); border-radius: 8px;
+  background: var(--bg); border-radius: 0px;
 }
 .plan-step-num { color: var(--accent); font-weight: 700; min-width: 24px; }
 .plan-step-info { flex: 1; }
@@ -224,25 +231,25 @@ main { display: flex; flex: 1; overflow: hidden; }
 
 .step-body { padding: 10px 14px 14px; border-top: 1px solid var(--border); }
 .step-stdout {
-  background: var(--bg); border-radius: 6px; padding: 8px 10px;
+  background: var(--bg); border-radius: 0px; padding: 8px 10px;
   font-size: 12px; color: var(--green); font-family: monospace;
   white-space: pre-wrap; max-height: 100px; overflow-y: auto; margin-bottom: 10px;
 }
 .step-error {
   background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.3);
-  border-radius: 6px; padding: 8px 10px; font-size: 12px; color: var(--red);
+  border-radius: 0px; padding: 8px 10px; font-size: 12px; color: var(--red);
   font-family: monospace; white-space: pre-wrap; max-height: 120px;
   overflow-y: auto; margin-bottom: 10px;
 }
 .step-outputs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .output-chip {
   background: var(--bg); border: 1px solid var(--border);
-  border-radius: 20px; padding: 3px 10px; font-size: 11px; color: var(--text);
+  border-radius: 0px; padding: 3px 10px; font-size: 11px; color: var(--text);
 }
 
 .step-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .btn-action {
-  border-radius: 8px; padding: 7px 16px; font-weight: 600; font-size: 13px;
+  border-radius: 0px; padding: 7px 16px; font-weight: 600; font-size: 13px;
   transition: all .15s;
 }
 .btn-next    { background: var(--green);  color: #fff; }
@@ -255,7 +262,7 @@ main { display: flex; flex: 1; overflow: hidden; }
 .btn-action:disabled { opacity: .35; cursor: not-allowed; }
 
 .code-preview {
-  background: var(--bg); border-radius: 6px; padding: 10px;
+  background: var(--bg); border-radius: 0px; padding: 10px;
   font-size: 11px; font-family: monospace; white-space: pre-wrap;
   max-height: 200px; overflow-y: auto; margin-top: 8px;
   border: 1px solid var(--border); color: #94a3b8; display: none;
@@ -270,7 +277,7 @@ main { display: flex; flex: 1; overflow: hidden; }
 .done-files { display: flex; flex-direction: column; gap: 5px; }
 .done-file {
   display: flex; align-items: center; justify-content: space-between;
-  background: var(--surface2); border-radius: 6px; padding: 6px 10px; font-size: 12px;
+  background: var(--surface2); border-radius: 0px; padding: 6px 10px; font-size: 12px;
 }
 .btn-dl {
   background: transparent; border: 1px solid var(--accent);
@@ -291,13 +298,13 @@ main { display: flex; flex: 1; overflow: hidden; }
 .agent-desc { font-size: 12px; color: var(--text); margin-top: 6px; line-height: 1.5; }
 .agent-actions { display: flex; gap: 6px; margin-top: 10px; }
 .btn-run-agent {
-  background: var(--accent); color: #fff; border-radius: 8px;
+  background: var(--accent); color: #fff; border-radius: 0px;
   padding: 6px 14px; font-weight: 600; font-size: 12px;
 }
 .btn-run-agent:hover { opacity: .88; }
 .btn-del-agent {
   background: transparent; border: 1px solid var(--border);
-  border-radius: 8px; padding: 6px 14px; color: var(--muted); font-size: 12px;
+  border-radius: 0px; padding: 6px 14px; color: var(--muted); font-size: 12px;
 }
 .btn-del-agent:hover { border-color: var(--red); color: var(--red); }
 
@@ -324,14 +331,14 @@ main { display: flex; flex: 1; overflow: hidden; }
 .dir-breadcrumb { font-size: 12px; color: var(--muted); margin-bottom: 10px; word-break: break-all; }
 .dir-entry {
   display: flex; align-items: center; gap: 10px; padding: 9px 10px;
-  border-radius: 8px; cursor: pointer; transition: background .15s;
+  border-radius: 0px; cursor: pointer; transition: background .15s;
 }
 .dir-entry:hover { background: var(--surface2); }
 .dir-entry.up { color: var(--muted); }
 .dir-icon { font-size: 16px; }
 
 .btn-sm {
-  border-radius: 8px; padding: 7px 16px; font-size: 13px;
+  border-radius: 0px; padding: 7px 16px; font-size: 13px;
 }
 .btn-cancel { background: transparent; border: 1px solid var(--border); color: var(--muted); }
 .btn-confirm { background: var(--accent); color: #fff; font-weight: 600; }
@@ -349,7 +356,7 @@ main { display: flex; flex: 1; overflow: hidden; }
 
 /* ── Misc ── */
 .tag {
-  font-size: 10px; padding: 2px 7px; border-radius: 20px;
+  font-size: 10px; padding: 2px 7px; border-radius: 0px;
   background: var(--border); color: var(--muted); font-weight: 600;
   text-transform: uppercase;
 }
@@ -360,8 +367,9 @@ main { display: flex; flex: 1; overflow: hidden; }
 <!-- Header -->
 <header>
   <div class="logo">
-    <span class="logo-icon">🌍</span> GeoFlow
+    <span class="logo-icon"></span> GeoFlow
   </div>
+  <div id="tokenBadge" style="margin-left:20px; font-size:12px; color:var(--muted); border-left:1px solid var(--border); padding-left:15px; display:flex; align-items:center;">API: &nbsp;<span id="tokenCount" style="color:var(--text);">0</span>/100 Tokens Exhausted</div>
   <div class="model-badge" id="modelBadge">Model: <span>loading…</span></div>
 </header>
 
@@ -370,11 +378,11 @@ main { display: flex; flex: 1; overflow: hidden; }
 
   <!-- ── LEFT: Search ── -->
   <div class="panel panel-left">
-    <div class="panel-header">🔍 File Search</div>
+    <div class="panel-header"> File Search</div>
     <div class="panel-body">
       <div class="search-box">
         <input id="searchInput" type="text" placeholder="Search .kml, .tif, .geojson…" autocomplete="off">
-        <button class="btn-icon" onclick="searchFiles()" title="Search">⏎</button>
+        <button class="btn-icon" onclick="searchFiles()" title="Search"></button>
       </div>
       <div id="searchResults">
         <div class="empty-state">Type to search for geospatial files</div>
@@ -385,8 +393,8 @@ main { display: flex; flex: 1; overflow: hidden; }
   <!-- ── RIGHT: Pipeline ── -->
   <div class="panel panel-right">
     <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('new')">➕ New Pipeline</button>
-      <button class="tab-btn" onclick="switchTab('agents')">🤖 Saved Agents</button>
+      <button class="tab-btn active" onclick="switchTab('new')"> New Pipeline</button>
+      <button class="tab-btn" onclick="switchTab('agents')"> Saved Agents</button>
     </div>
 
     <!-- New Pipeline tab -->
@@ -396,10 +404,21 @@ main { display: flex; flex: 1; overflow: hidden; }
       <div id="pipelineForm" class="panel-body">
 
         <div class="form-section">
-          <div class="form-label">Task Description</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+            <div class="form-label" style="margin-bottom:0;">Task Description</div>
+            <div style="display:flex; gap: 6px;">
+              <span style="font-size: 11px; color: var(--muted); align-self: center;">Templates:</span>
+              <button type="button" class="template-pill" onclick="insertTemplate('grid')">[Grid Sampling]</button>
+              <button type="button" class="template-pill" onclick="insertTemplate('clip')">[Raster Clip]</button>
+              <button type="button" class="template-pill" onclick="insertTemplate('coords')">[Extract Coords]</button>
+            </div>
+          </div>
           <textarea id="taskInput" class="form-textarea"
-            placeholder="e.g. Make a 20m grid on the geometry, extract DEM heights, output as Excel with coordinates and codes…"
-            rows="4"></textarea>
+            placeholder="[GOAL]: Specify the spatial operation (e.g., Grid sampling, Raster clip)&#10;[PARAMETERS]: Set resolution, CRS (e.g. EPSG:32643 / UTM), buffer distance&#10;[PROCESSING]: Detail exact step-by-step logic to execute on inputs&#10;[OUTPUT]: Define exact format (.xlsx, .geojson, .tif) & column names"
+            rows="5"></textarea>
+          <div style="font-size: 11px; color: var(--accent2); margin-top: 5px;">
+            Tip for best agent results: Structure your prompt into Goal, Parameters, Processing, and Output specification. Click a template above to pre-fill.
+          </div>
         </div>
 
         <div class="form-section">
@@ -409,7 +428,7 @@ main { display: flex; flex: 1; overflow: hidden; }
                ondragover="handleDragOver(event)"
                ondragleave="handleDragLeave(event)"
                ondrop="handleDrop(event)">
-            <div>📂 Drop files here or click to upload</div>
+            <div> Drop files here or click to upload</div>
             <div class="drop-zone-hint">Supported: .kml .kmz .tif .geojson .shp .csv …</div>
           </div>
           <input type="file" id="fileUpload" multiple style="display:none" onchange="handleFileUpload(event)">
@@ -421,12 +440,12 @@ main { display: flex; flex: 1; overflow: hidden; }
           <div class="dir-row">
             <input type="text" id="outputDir" class="dir-input"
                    placeholder="Default: output/" readonly>
-            <button class="btn-icon" onclick="openDirPicker()" title="Browse">📁</button>
+            <button class="btn-icon" onclick="openDirPicker()" title="Browse"></button>
           </div>
         </div>
 
         <button class="btn-primary" onclick="startPipeline()">
-          ⚡ Create &amp; Run Pipeline
+           Create &amp; Run Pipeline
         </button>
 
       </div>
@@ -481,7 +500,7 @@ main { display: flex; flex: 1; overflow: hidden; }
         <div class="drop-zone" onclick="document.getElementById('agentFileUpload').click()"
              ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)"
              ondrop="handleAgentDrop(event)">
-          <div>📂 Drop files or click to upload</div>
+          <div> Drop files or click to upload</div>
         </div>
         <input type="file" id="agentFileUpload" multiple style="display:none"
                onchange="handleAgentFileUpload(event)">
@@ -491,13 +510,13 @@ main { display: flex; flex: 1; overflow: hidden; }
         <div class="form-label">Output Directory</div>
         <div class="dir-row">
           <input type="text" id="agentOutputDir" class="dir-input" placeholder="Default: output/" readonly>
-          <button class="btn-icon" onclick="openDirPicker('agent')" title="Browse">📁</button>
+          <button class="btn-icon" onclick="openDirPicker('agent')" title="Browse"></button>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn-sm btn-cancel" onclick="closeRunModal()">Cancel</button>
-      <button class="btn-sm btn-confirm" onclick="submitRunAgent()">▶ Run</button>
+      <button class="btn-sm btn-confirm" onclick="submitRunAgent()"> Run</button>
     </div>
   </div>
 </div>
@@ -522,6 +541,7 @@ const state = {
 document.addEventListener('DOMContentLoaded', () => {
   loadModelBadge();
   loadAgents();
+  updateTokens();
   document.getElementById('searchInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') searchFiles();
   });
@@ -553,6 +573,7 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
   if (tab === 'agents') loadAgents();
+  updateTokens();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -689,10 +710,10 @@ async function loadDirs(path) {
   document.getElementById('dirBreadcrumb').textContent = data.path;
   const el = document.getElementById('dirEntries');
   let html = `<div class="dir-entry up" onclick="loadDirs(${JSON.stringify(data.parent)})">
-    <span class="dir-icon">⬆️</span> <span>..</span></div>`;
+    <span class="dir-icon"></span> <span>..</span></div>`;
   html += data.dirs.map(d => `
     <div class="dir-entry" onclick="loadDirs(${JSON.stringify(d.path)})">
-      <span class="dir-icon">📁</span> <span>${d.name}</span>
+      <span class="dir-icon"></span> <span>${d.name}</span>
     </div>`).join('');
   el.innerHTML = html;
 }
@@ -802,18 +823,19 @@ function handleEvent(ev, sessionId) {
     case 'done':
       renderDone(ev);
       loadAgents();
+  updateTokens();
       break;
 
     case 'aborted':
       pa.insertAdjacentHTML('beforeend',
-        '<div class="phase-msg" style="color:var(--yellow)">⚠️ Pipeline aborted.</div>');
+        '<div class="phase-msg" style="color:var(--yellow)"> Pipeline aborted.</div>');
       pa.insertAdjacentHTML('beforeend',
         '<button class="btn-primary" style="margin-top:12px" onclick="resetForm()">← New Pipeline</button>');
       break;
 
     case 'error':
       pa.insertAdjacentHTML('beforeend', `
-        <div class="step-error">❌ Error: ${ev.message}</div>
+        <div class="step-error"> Error: ${ev.message}</div>
         <button class="btn-primary" style="margin-top:12px" onclick="resetForm()">← New Pipeline</button>`);
       break;
   }
@@ -835,10 +857,10 @@ function renderPlan(ev, sessionId) {
 
   pa.insertAdjacentHTML('beforeend', `
     <div class="plan-box" id="planBox">
-      <div class="plan-title">📋 ${ev.description || 'Proposed Plan'}</div>
+      <div class="plan-title"> ${ev.description || 'Proposed Plan'}</div>
       <div class="plan-steps">${steps}</div>
       <div class="plan-actions">
-        <button class="btn-action btn-next" onclick="planDecision('approve','${sessionId}')">✅ Approve Plan</button>
+        <button class="btn-action btn-next" onclick="planDecision('approve','${sessionId}')"> Approve Plan</button>
         <button class="btn-action btn-retry" onclick="planDecision('regenerate','${sessionId}')">🔄 Regenerate</button>
         <button class="btn-action btn-abort" onclick="planDecision('abort','${sessionId}')">✕ Abort</button>
       </div>
@@ -868,7 +890,7 @@ function renderStepCard(ev) {
   pa.insertAdjacentHTML('beforeend', `
     <div class="step-card running" id="${id}">
       <div class="step-header" onclick="toggleStepBody(${ev.step_id})">
-        <span class="step-status-icon">⚡</span>
+        <span class="step-status-icon"></span>
         <div class="step-info">
           <div class="step-name">Step ${ev.step_id}/${ev.total}: ${ev.step_name}</div>
           <div class="step-desc">${ev.description}</div>
@@ -898,7 +920,7 @@ function updateStepSuccess(ev) {
   const card = document.getElementById(`step-${ev.step_id}`);
   if (!card) return;
   card.className = 'step-card success';
-  card.querySelector('.step-status-icon').textContent = '✅';
+  card.querySelector('.step-status-icon').textContent = '';
   card.querySelector('.step-time').textContent = `${ev.elapsed}s`;
   state.steps[ev.step_id] = {...(state.steps[ev.step_id]||{}), code: ev.code, mapPath: ev.map_path};
 
@@ -919,7 +941,7 @@ function updateStepFailed(ev) {
   const card = document.getElementById(`step-${ev.step_id}`);
   if (!card) return;
   card.className = 'step-card failed';
-  card.querySelector('.step-status-icon').textContent = '❌';
+  card.querySelector('.step-status-icon').textContent = '';
   const body = document.getElementById(`step-${ev.step_id}-body`);
   body.innerHTML = `
     <div class="step-error">${escHtml(ev.error || '')}${ev.stderr ? '\n' + escHtml(ev.stderr) : ''}</div>
@@ -936,11 +958,11 @@ function renderStepActions(ev, sessionId) {
 
   const opts = ev.options || [];
   let html = '<div class="step-actions">';
-  if (opts.includes('next'))  html += `<button class="btn-action btn-next"  onclick="stepDecision(${ev.step_id},'next','${sessionId}')">▶ Next</button>`;
-  if (opts.includes('fix'))   html += `<button class="btn-action btn-fix"   onclick="stepDecision(${ev.step_id},'fix','${sessionId}')">🔧 Auto-Fix</button>`;
+  if (opts.includes('next'))  html += `<button class="btn-action btn-next"  onclick="stepDecision(${ev.step_id},'next','${sessionId}')"> Next</button>`;
+  if (opts.includes('fix'))   html += `<button class="btn-action btn-fix"   onclick="stepDecision(${ev.step_id},'fix','${sessionId}')"> Auto-Fix</button>`;
   if (opts.includes('retry')) html += `<button class="btn-action btn-retry" onclick="stepDecision(${ev.step_id},'retry','${sessionId}')">🔄 Retry</button>`;
   if (ev.has_map && state.steps[ev.step_id]?.mapPath)
-    html += `<button class="btn-action btn-map" onclick="openMap(${ev.step_id})">🗺️ Map</button>`;
+    html += `<button class="btn-action btn-map" onclick="openMap(${ev.step_id})"> Map</button>`;
   if (state.steps[ev.step_id]?.code)
     html += `<button class="btn-action btn-code" onclick="toggleCode(${ev.step_id})">{ } Code</button>`;
   if (opts.includes('abort')) html += `<button class="btn-action btn-abort" onclick="stepDecision(${ev.step_id},'abort','${sessionId}')">✕ Abort</button>`;
@@ -956,7 +978,7 @@ async function stepDecision(stepId, action, sessionId) {
   if (action === 'abort' && card) card.className = 'step-card';
   if (action === 'fix' || action === 'retry') {
     if (card) card.className = 'step-card running';
-    if (card) card.querySelector('.step-status-icon').textContent = action === 'fix' ? '🔧' : '🔄';
+    if (card) card.querySelector('.step-status-icon').textContent = action === 'fix' ? '' : '🔄';
   }
   await sendDecision(sessionId, action);
 }
@@ -1033,7 +1055,7 @@ async function loadAgents() {
         </div>
         <div class="agent-desc">${escHtml(a.description||'')}</div>
         <div class="agent-actions">
-          <button class="btn-run-agent" onclick="openRunModal('${a.id}')">▶ Run Again</button>
+          <button class="btn-run-agent" onclick="openRunModal('${a.id}')"> Run Again</button>
           <button class="btn-del-agent" onclick="deleteAgent('${a.id}')">🗑 Delete</button>
         </div>
       </div>`).join('');
@@ -1046,6 +1068,7 @@ async function deleteAgent(id) {
   if (!confirm(`Delete agent "${id}"?`)) return;
   await fetch(`/api/agents/${encodeURIComponent(id)}`, {method: 'DELETE'});
   loadAgents();
+  updateTokens();
 }
 
 // ── Run agent modal ────────────────────────────────────────
@@ -1107,6 +1130,29 @@ function escHtml(s) {
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+async function updateTokens() {
+  try {
+    const r = await fetch('/api/status');
+    if (r.ok) {
+      const data = await r.json();
+      document.getElementById('tokenCount').innerText = data.tokens_used;
+    }
+  } catch(e) {}
+}
+setInterval(updateTokens, 2000);
+
+function insertTemplate(type) {
+  const t = document.getElementById('taskInput');
+  if (type === 'grid') {
+    t.value = "[GOAL]: Perform grid sampling over the input polygon boundary.\n[PARAMETERS]: Grid spacing = 50m, Reproject to UTM (auto-detect zone).\n[PROCESSING]: Extract DEM elevation at each grid point centroid.\n[OUTPUT]: Save as 'elevation_grid.xlsx' with columns: Point_ID, Longitude, Latitude, Elevation_m.";
+  } else if (type === 'clip') {
+    t.value = "[GOAL]: Clip the input raster (.tif) using the vector boundary (.kml/.shp).\n[PARAMETERS]: Crop to bounding box, maintain original pixel resolution and nodata value.\n[PROCESSING]: Mask raster pixels outside polygon.\n[OUTPUT]: Save clipped GeoTIFF as 'clipped_output.tif'.";
+  } else if (type === 'coords') {
+    t.value = "[GOAL]: Extract all vertex coordinates and elevation profiles along the KML track.\n[PARAMETERS]: Sample interval = 10m along line.\n[PROCESSING]: Calculate distance from start and sample DEM elevation at each vertex.\n[OUTPUT]: Save as 'profile_data.csv' with columns: Distance_m, Lon, Lat, Elevation.";
+  }
+}
+
 </script>
 </body>
 </html>

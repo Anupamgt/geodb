@@ -9,6 +9,8 @@ from geodb.agent_factory.config import (
 
 
 class LLMClient:
+    global_tokens_used = 0
+
 
     def __init__(self, model=None, base_url=None, provider=None, api_key=None):
         self._api_key     = api_key  or CLOUD_API_KEY
@@ -83,7 +85,10 @@ class LLMClient:
                         "python -m geodb.transform config --api-key YOUR_KEY"
                     )
                 r.raise_for_status()
-                return r.json()["choices"][0]["message"]["content"].strip()
+                resp_json = r.json()
+                usage = resp_json.get("usage", {})
+                type(self).global_tokens_used += usage.get("total_tokens", 0)
+                return resp_json["choices"][0]["message"]["content"].strip()
             except (requests.ConnectionError, RuntimeError):
                 raise
             except Exception as e:
@@ -104,7 +109,10 @@ class LLMClient:
                               json=payload, headers=headers,
                               timeout=CLOUD_TIMEOUT)
             r.raise_for_status()
-            blocks = r.json().get("content", [])
+            resp_json = r.json()
+            usage = resp_json.get("usage", {})
+            type(self).global_tokens_used += (usage.get("input_tokens", 0) + usage.get("output_tokens", 0))
+            blocks = resp_json.get("content", [])
             return "".join(b.get("text", "") for b in blocks
                            if b.get("type") == "text").strip()
         except Exception as e:
